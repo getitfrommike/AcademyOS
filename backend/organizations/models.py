@@ -15,10 +15,11 @@ class Organization(models.Model):
         editable=False,
     )
     name = models.CharField(max_length=200)
-    slug = models.SlugField(max_length=200, unique=True)
-
+    slug = models.SlugField(
+        max_length=200,
+        unique=True,
+    )
     is_active = models.BooleanField(default=True)
-
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
@@ -37,10 +38,10 @@ class Organization(models.Model):
 
 class OrganizationMembership(models.Model):
     """
-    Connects a user to an organization with a role.
+    Connect a user to an organization with a role.
 
-    A single user may belong to multiple organizations and may have a
-    different role in each organization.
+    A user may belong to multiple organizations and may have a different
+    role in each organization.
     """
 
     class Role(models.TextChoices):
@@ -70,20 +71,35 @@ class OrganizationMembership(models.Model):
         choices=Role.choices,
         default=Role.STUDENT,
     )
-
     is_active = models.BooleanField(default=True)
-
     joined_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)
 
     class Meta:
-        ordering = ["organization__name", "user__email"]
+        ordering = [
+            "organization__name",
+            "user__email",
+        ]
         constraints = [
             models.UniqueConstraint(
                 fields=["organization", "user"],
                 name="unique_user_membership_per_organization",
             )
         ]
+        indexes = [
+            models.Index(
+                fields=["user", "is_active"],
+                name="membership_user_active_idx",
+            ),
+            models.Index(
+                fields=["organization", "role", "is_active"],
+                name="membership_org_role_idx",
+            ),
+        ]
 
     def __str__(self) -> str:
-        return f"{self.user.email} — {self.organization.name} ({self.get_role_display()})"
+        return (
+            f"{self.user.email} — "
+            f"{self.organization.name} "
+            f"({self.get_role_display()})"
+        )

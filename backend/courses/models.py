@@ -52,6 +52,25 @@ class Course(LearningContent):
             ),
         ]
 
+        indexes = [
+            models.Index(
+                fields=["organization", "status"],
+                name="course_org_status_idx",
+            ),
+            models.Index(
+                fields=["academy", "status"],
+                name="course_acad_status_idx",
+            ),
+            models.Index(
+                fields=["program", "status"],
+                name="course_prog_status_idx",
+            ),
+            models.Index(
+                fields=["organization", "is_featured"],
+                name="course_org_featured_idx",
+            ),
+        ]
+
     def __str__(self) -> str:
         return f"{self.title} — {self.academy.name}"
 
@@ -166,6 +185,7 @@ class Lesson(LearningContent):
             f"Module {self.module.order}, "
             f"Lesson {self.order}: {self.title}"
         )
+    
 
 class Activity(LearningContent):
     """

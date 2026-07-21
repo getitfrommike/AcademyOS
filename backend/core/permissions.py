@@ -74,10 +74,16 @@ class IsOrganizationMember(BasePermission):
     @staticmethod
     def _get_organization(obj: Any) -> Organization | None:
         """
-        Resolve an Organization from either an Organization instance or an
-        object containing a direct `organization` relationship.
+        Resolve the organization associated with a protected object.
 
-        Deny access when the object has no valid organization relationship.
+        Supported relationships:
+        - Organization
+        - obj.organization
+        - obj.academy.organization
+        - obj.course.organization
+        - obj.module.course.organization
+
+        Deny access when no valid organization can be identified.
         """
         if isinstance(obj, Organization):
             return obj
@@ -86,5 +92,69 @@ class IsOrganizationMember(BasePermission):
 
         if isinstance(organization, Organization):
             return organization
+
+        academy = getattr(obj, "academy", None)
+        academy_organization = getattr(
+            academy,
+            "organization",
+            None,
+        )
+
+        if isinstance(academy_organization, Organization):
+            return academy_organization
+
+        course = getattr(obj, "course", None)
+        course_organization = getattr(
+            course,
+            "organization",
+            None,
+        )
+
+        if isinstance(course_organization, Organization):
+            return course_organization
+
+        module = getattr(obj, "module", None)
+        module_course = getattr(
+            module,
+            "course",
+            None,
+        )
+        module_course_organization = getattr(
+            module_course,
+            "organization",
+            None,
+        )
+
+        if isinstance(
+            module_course_organization,
+            Organization,
+        ):
+            return module_course_organization
+        
+        lesson = getattr(obj, "lesson", None)
+
+        lesson_module = getattr(
+        lesson,
+        "module",
+        None,
+        )
+
+        lesson_course = getattr(
+        lesson_module,
+        "course",
+        None,
+        )
+
+        lesson_course_organization = getattr(
+        lesson_course,
+        "organization",
+        None,
+        )
+
+        if isinstance(
+        lesson_course_organization,
+        Organization,
+        ):
+            return lesson_course_organization
 
         return None

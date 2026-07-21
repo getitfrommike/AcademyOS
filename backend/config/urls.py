@@ -5,7 +5,12 @@ from rest_framework.routers import DefaultRouter
 
 from academies.api import AcademyViewSet
 from businesses.api import EducationBusinessViewSet
-from courses.api import CourseViewSet
+from courses.api import (
+    ActivityViewSet,
+    CourseViewSet,
+    LessonViewSet,
+    ModuleViewSet,
+)
 from organizations.api import MembershipViewSet, OrganizationViewSet
 from programs.api import ProgramViewSet
 
@@ -16,16 +21,19 @@ router.register(
     OrganizationViewSet,
     basename="organization",
 )
+
 router.register(
     "businesses",
     EducationBusinessViewSet,
     basename="business",
 )
+
 router.register(
     "academies",
     AcademyViewSet,
     basename="academy",
 )
+
 router.register(
     "programs",
     ProgramViewSet,
@@ -37,6 +45,25 @@ router.register(
     CourseViewSet,
     basename="course",
 )
+
+router.register(
+    "modules",
+    ModuleViewSet,
+    basename="module",
+)
+
+router.register(
+    "lessons",
+    LessonViewSet,
+    basename="lesson",
+)
+
+router.register(
+    "activities",
+    ActivityViewSet,
+    basename="activity",
+)
+
 
 def health(request):
     return JsonResponse(

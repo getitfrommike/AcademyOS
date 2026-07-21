@@ -1,4 +1,5 @@
 from django.core.exceptions import ValidationError
+from django.core.validators import MinValueValidator
 from django.db import models
 
 from academies.models import Academy
@@ -114,6 +115,7 @@ class Module(LearningContent):
 
     order = models.PositiveIntegerField(
         default=1,
+        validators=[MinValueValidator(1)],
         help_text="The module's position inside the course.",
     )
 
@@ -155,6 +157,7 @@ class Lesson(LearningContent):
 
     order = models.PositiveIntegerField(
         default=1,
+        validators=[MinValueValidator(1)],
         help_text="The lesson's position inside the module.",
     )
 
@@ -185,7 +188,7 @@ class Lesson(LearningContent):
             f"Module {self.module.order}, "
             f"Lesson {self.order}: {self.title}"
         )
-    
+
 
 class Activity(LearningContent):
     """
@@ -221,6 +224,7 @@ class Activity(LearningContent):
 
     order = models.PositiveIntegerField(
         default=1,
+        validators=[MinValueValidator(1)],
         help_text="The activity's position inside the lesson.",
     )
 
@@ -265,4 +269,4 @@ class Activity(LearningContent):
             f"Module {self.lesson.module.order}, "
             f"Lesson {self.lesson.order}, "
             f"Activity {self.order}: {self.title}"
-        )        
+        )

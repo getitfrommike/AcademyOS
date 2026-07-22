@@ -169,13 +169,30 @@ MEDIA_ROOT = BASE_DIR / "media"
 PRIVATE_UPLOAD_ROOT = BASE_DIR / "private_uploads"
 QUARANTINE_UPLOAD_ROOT = PRIVATE_UPLOAD_ROOT / "quarantine"
 
-KNOWLEDGE_UPLOAD_MAX_BYTES = 25 * 1024 * 1024
+# Knowledge upload policy
+KNOWLEDGE_UPLOAD_MAX_BYTES = 100 * 1024 * 1024  # 100 MB
 KNOWLEDGE_MAX_FILES_PER_WORKSPACE = 20
 
-DATA_UPLOAD_MAX_MEMORY_SIZE = 30 * 1024 * 1024
+KNOWLEDGE_ALLOWED_EXTENSIONS = {
+    ".pdf",
+    ".docx",
+    ".txt",
+    ".md",
+    ".csv",
+    ".xlsx",
+    ".pptx",
+}
+
+# Django request parsing limits
+#
+# This must remain slightly larger than KNOWLEDGE_UPLOAD_MAX_BYTES
+# because multipart uploads include request metadata and boundaries.
+DATA_UPLOAD_MAX_MEMORY_SIZE = 110 * 1024 * 1024
 DATA_UPLOAD_MAX_NUMBER_FILES = 5
 DATA_UPLOAD_MAX_NUMBER_FIELDS = 50
 
+# Files larger than this threshold are streamed to temporary storage
+# rather than retained entirely in application memory.
 FILE_UPLOAD_MAX_MEMORY_SIZE = 2_621_440
 FILE_UPLOAD_PERMISSIONS = 0o600
 FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o700

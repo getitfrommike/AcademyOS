@@ -63,6 +63,7 @@ INSTALLED_APPS = [
     "courses",
     "enrollments",
     "audit",
+    "knowledge",
 ]
 
 
@@ -161,6 +162,24 @@ STATIC_ROOT = BASE_DIR / "staticfiles"
 MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 
+
+# Private Knowledge Engine™ upload storage
+#
+# These files must never be served through MEDIA_URL or static URLs.
+PRIVATE_UPLOAD_ROOT = BASE_DIR / "private_uploads"
+QUARANTINE_UPLOAD_ROOT = PRIVATE_UPLOAD_ROOT / "quarantine"
+
+KNOWLEDGE_UPLOAD_MAX_BYTES = 25 * 1024 * 1024
+KNOWLEDGE_MAX_FILES_PER_WORKSPACE = 20
+
+DATA_UPLOAD_MAX_MEMORY_SIZE = 30 * 1024 * 1024
+DATA_UPLOAD_MAX_NUMBER_FILES = 5
+DATA_UPLOAD_MAX_NUMBER_FIELDS = 50
+
+FILE_UPLOAD_MAX_MEMORY_SIZE = 2_621_440
+FILE_UPLOAD_PERMISSIONS = 0o600
+FILE_UPLOAD_DIRECTORY_PERMISSIONS = 0o700
+
 DEFAULT_AUTO_FIELD = "django.db.models.BigAutoField"
 
 
@@ -201,13 +220,15 @@ REST_FRAMEWORK = {
     "DEFAULT_THROTTLE_CLASSES": [
         "rest_framework.throttling.AnonRateThrottle",
         "rest_framework.throttling.UserRateThrottle",
+        "rest_framework.throttling.ScopedRateThrottle",
     ],
     "DEFAULT_THROTTLE_RATES": {
         "anon": "30/min",
         "user": "300/min",
+        "knowledge_upload": "20/hour",
+        "knowledge_analysis": "10/hour",
     },
 }
-
 
 # HTTPS and transport security
 SECURE_SSL_REDIRECT = env.bool(

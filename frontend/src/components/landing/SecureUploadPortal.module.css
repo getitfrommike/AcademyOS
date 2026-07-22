@@ -1,0 +1,537 @@
+.portal {
+  --portal-blue: #0717ff;
+  --portal-paper: #f4f0e6;
+  --portal-light: #fffdf7;
+  --portal-line: rgba(7, 23, 255, 0.32);
+  --portal-soft: rgba(7, 23, 255, 0.045);
+
+  width: 100%;
+  color: var(--portal-blue);
+}
+
+/* HEADER */
+
+.portalHeader {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: start;
+  gap: 40px;
+  padding-bottom: 32px;
+  border-bottom: 1px solid var(--portal-line);
+}
+
+.portalIndex {
+  display: block;
+  margin-bottom: 22px;
+  font-family: "Courier New", monospace;
+  font-size: 0.68rem;
+  font-weight: 900;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.portalHeader h2 {
+  max-width: 980px;
+  margin: 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(4rem, 8vw, 10rem);
+  font-weight: 900;
+  line-height: 0.76;
+  letter-spacing: -0.085em;
+}
+
+.securityStatus {
+  min-width: 210px;
+  padding: 14px 16px;
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  border: 1px solid var(--portal-line);
+  background: var(--portal-light);
+  font-family: "Courier New", monospace;
+  font-size: 0.64rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.securityDot {
+  width: 9px;
+  height: 9px;
+  flex: 0 0 auto;
+  border-radius: 50%;
+  background: var(--portal-blue);
+  box-shadow: 0 0 18px rgba(7, 23, 255, 0.65);
+}
+
+/* INTRODUCTION */
+
+.portalIntroduction {
+  max-width: 1060px;
+  margin: 38px 0;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.4rem, 2.4vw, 2.8rem);
+  font-weight: 700;
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+/* FILE-TYPE CATEGORIES */
+
+.categoryGrid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--portal-line);
+  border-left: 1px solid var(--portal-line);
+}
+
+.category {
+  min-height: 130px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  border-right: 1px solid var(--portal-line);
+  border-bottom: 1px solid var(--portal-line);
+  background: var(--portal-soft);
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.category:hover {
+  background: var(--portal-blue);
+  color: var(--portal-light);
+}
+
+.category strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.5rem, 2.2vw, 2.3rem);
+  line-height: 0.95;
+  letter-spacing: -0.045em;
+}
+
+.category span {
+  font-family: "Courier New", monospace;
+  font-size: 0.62rem;
+  font-weight: 900;
+  line-height: 1.5;
+  letter-spacing: 0.12em;
+}
+
+/* FORM */
+
+.form {
+  margin-top: 34px;
+}
+
+/* DROP ZONE */
+
+.dropZone {
+  min-height: 300px;
+  padding: clamp(26px, 4vw, 48px);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 34px;
+  border: 1px solid var(--portal-line);
+  background:
+    linear-gradient(
+      rgba(7, 23, 255, 0.045) 1px,
+      transparent 1px
+    ),
+    linear-gradient(
+      90deg,
+      rgba(7, 23, 255, 0.045) 1px,
+      transparent 1px
+    ),
+    var(--portal-light);
+  background-size: 32px 32px;
+  cursor: pointer;
+  transition:
+    background 180ms ease,
+    color 180ms ease,
+    transform 180ms ease;
+}
+
+.dropZone:hover,
+.dropZone:focus-visible {
+  outline: none;
+  background: var(--portal-blue);
+  color: var(--portal-light);
+  transform: translateY(-3px);
+}
+
+.fileInput {
+  display: none;
+}
+
+.uploadSymbol {
+  width: 112px;
+  height: 112px;
+  display: grid;
+  place-items: center;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 4rem;
+  font-weight: 200;
+  line-height: 1;
+}
+
+.dropZone > div {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.dropZone strong {
+  display: block;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(2.6rem, 5.4vw, 7rem);
+  font-weight: 900;
+  line-height: 0.82;
+  letter-spacing: -0.075em;
+}
+
+.dropZone > div > span,
+.uploadLimit {
+  font-family: "Courier New", monospace;
+  font-size: 0.65rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.uploadLimit {
+  max-width: 170px;
+  align-self: end;
+  line-height: 1.5;
+  text-align: right;
+}
+
+/* SELECTED FILES */
+
+.fileQueue {
+  border-right: 1px solid var(--portal-line);
+  border-bottom: 1px solid var(--portal-line);
+  border-left: 1px solid var(--portal-line);
+  background: var(--portal-light);
+}
+
+.fileQueueHeader,
+.fileRow {
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  border-bottom: 1px solid var(--portal-line);
+}
+
+.fileQueueHeader {
+  background: rgba(7, 23, 255, 0.065);
+  font-family: "Courier New", monospace;
+  font-size: 0.63rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.fileRow:last-child {
+  border-bottom: 0;
+}
+
+.fileRow > div {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.fileRow strong {
+  overflow: hidden;
+  font-size: 0.92rem;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.fileRow span {
+  font-family: "Courier New", monospace;
+  font-size: 0.62rem;
+}
+
+.fileRow button {
+  padding: 10px 14px;
+  border: 1px solid var(--portal-line);
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  font-family: "Courier New", monospace;
+  font-size: 0.58rem;
+  font-weight: 900;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.fileRow button:hover {
+  background: var(--portal-blue);
+  color: var(--portal-light);
+}
+
+/* FORM FIELDS */
+
+.inputGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+}
+
+.field {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  border-right: 1px solid var(--portal-line);
+  border-bottom: 1px solid var(--portal-line);
+  border-left: 1px solid var(--portal-line);
+}
+
+.inputGrid .field + .field {
+  border-left: 0;
+}
+
+.field > span {
+  padding: 14px 17px;
+  border-bottom: 1px solid var(--portal-line);
+  background: rgba(7, 23, 255, 0.045);
+  font-family: "Courier New", monospace;
+  font-size: 0.63rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.field input,
+.field select,
+.field textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 0;
+  border-radius: 0;
+  outline: 0;
+  background: var(--portal-light);
+  color: var(--portal-blue);
+}
+
+.field input,
+.field select {
+  min-height: 74px;
+  padding: 18px;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: 1rem;
+}
+
+.field textarea {
+  min-height: 210px;
+  padding: 22px;
+  resize: vertical;
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.25rem, 2vw, 2rem);
+  line-height: 1.25;
+  letter-spacing: -0.025em;
+}
+
+.field input::placeholder,
+.field textarea::placeholder {
+  color: rgba(7, 23, 255, 0.48);
+}
+
+.field input:focus,
+.field select:focus,
+.field textarea:focus {
+  box-shadow: inset 0 0 0 2px var(--portal-blue);
+}
+
+/* SECURITY FEATURES */
+
+.securityGrid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-left: 1px solid var(--portal-line);
+}
+
+.securityGrid > div {
+  min-height: 180px;
+  padding: 21px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 35px;
+  border-right: 1px solid var(--portal-line);
+  border-bottom: 1px solid var(--portal-line);
+  background: var(--portal-soft);
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.securityGrid > div:hover {
+  background: var(--portal-blue);
+  color: var(--portal-light);
+}
+
+.securityGrid strong {
+  font-family: Georgia, "Times New Roman", serif;
+  font-size: clamp(1.4rem, 2vw, 2rem);
+  line-height: 0.95;
+  letter-spacing: -0.04em;
+}
+
+.securityGrid span {
+  font-size: 0.78rem;
+  line-height: 1.5;
+}
+
+/* FOOTER AND BUTTON */
+
+.formFooter {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 0.34fr);
+  border-right: 1px solid var(--portal-line);
+  border-bottom: 1px solid var(--portal-line);
+  border-left: 1px solid var(--portal-line);
+}
+
+.formStatus {
+  min-height: 120px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.formStatus > span {
+  font-family: "Courier New", monospace;
+  font-size: 0.64rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+}
+
+.statusMessage,
+.errorMessage {
+  max-width: 680px;
+  margin: 12px 0 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
+
+.errorMessage {
+  font-weight: 700;
+}
+
+.buildButton {
+  min-height: 120px;
+  padding: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  border: 0;
+  border-left: 1px solid var(--portal-line);
+  background: var(--portal-blue);
+  color: var(--portal-light) !important;
+  cursor: pointer;
+  font-family: "Courier New", monospace;
+  font-size: 0.72rem;
+  font-weight: 900;
+  letter-spacing: 0.13em;
+  text-transform: uppercase;
+  transition:
+    background 180ms ease,
+    color 180ms ease;
+}
+
+.buildButton:hover:not(:disabled) {
+  background: var(--portal-light);
+  color: var(--portal-blue) !important;
+}
+
+.buildButton:disabled {
+  cursor: wait;
+  opacity: 0.58;
+}
+
+/* TABLET */
+
+@media (max-width: 1000px) {
+  .portalHeader {
+    grid-template-columns: 1fr;
+  }
+
+  .securityStatus {
+    width: max-content;
+  }
+
+  .categoryGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .dropZone {
+    grid-template-columns: auto 1fr;
+  }
+
+  .uploadLimit {
+    max-width: none;
+    grid-column: 1 / -1;
+    text-align: left;
+  }
+
+  .securityGrid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+/* MOBILE */
+
+@media (max-width: 700px) {
+  .portalHeader h2 {
+    font-size: clamp(3.5rem, 17vw, 6rem);
+  }
+
+  .categoryGrid,
+  .inputGrid,
+  .securityGrid,
+  .formFooter {
+    grid-template-columns: 1fr;
+  }
+
+  .inputGrid .field + .field {
+    border-left: 1px solid var(--portal-line);
+  }
+
+  .dropZone {
+    grid-template-columns: 1fr;
+    min-height: 360px;
+  }
+
+  .uploadSymbol {
+    width: 84px;
+    height: 84px;
+    font-size: 3rem;
+  }
+
+  .dropZone strong {
+    font-size: clamp(2.8rem, 13vw, 5rem);
+  }
+
+  .uploadLimit {
+    grid-column: auto;
+    align-self: initial;
+  }
+
+  .buildButton {
+    border-top: 1px solid var(--portal-line);
+    border-left: 0;
+  }
+}

@@ -15,6 +15,9 @@ db.sqlite3-journal
 media/
 staticfiles/
 
+# Private Knowledge Engine™ uploads
+backend/private_uploads/
+
 # Environment variables and secrets
 .env
 .env.*

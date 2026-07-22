@@ -13,6 +13,7 @@ from courses.api import (
 )
 from organizations.api import MembershipViewSet, OrganizationViewSet
 from programs.api import ProgramViewSet
+from accounts.views import CsrfView, LoginView, LogoutView, SessionView, SignupView
 
 router = DefaultRouter()
 
@@ -75,6 +76,11 @@ def health(request):
 
 
 urlpatterns = [
+    path("api/auth/csrf/", CsrfView.as_view(), name="auth-csrf"),
+    path("api/auth/signup/", SignupView.as_view(), name="auth-signup"),
+    path("api/auth/login/", LoginView.as_view(), name="auth-login"),
+    path("api/auth/logout/", LogoutView.as_view(), name="auth-logout"),
+    path("api/auth/session/", SessionView.as_view(), name="auth-session"),
     path(
         "health/",
         health,
